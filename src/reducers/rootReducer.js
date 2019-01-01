@@ -1,11 +1,12 @@
 import {combineReducers} from 'redux';
+import {handleActions} from 'redux-actions';
+import {filterStopsCounts} from './stopsFilter';
 
-const tickets = (state = {}, action) => {
-    return state;
-};
+export const tickets = handleActions({}, {});
 
 const rootReducer = combineReducers({
-    tickets
+    tickets,
+    filterStopsCounts
 });
 
 export default rootReducer;

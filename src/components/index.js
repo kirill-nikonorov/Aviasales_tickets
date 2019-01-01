@@ -1,3 +1,5 @@
 import Ticket from './Ticket';
+import OutputCustomizer from './OutputCustomizer';
+import StopsFilter from './StopsFilter';
 
-export {Ticket};
+export {Ticket, OutputCustomizer, StopsFilter};

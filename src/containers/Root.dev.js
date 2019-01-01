@@ -1,11 +1,13 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import styled from 'styled-components';
-import {Ticket} from '../components';
+import {Ticket, OutputCustomizer} from '../components';
+import {updateStopsFilter} from '../actions/stopsFilter';
 
 import DevTools from './DevTools';
 
 const AppContainer = styled.div`
+    display: flex
     min-height: 100vh;
     background-color: #b5b5b5;
     max-width: 900px;
@@ -18,30 +20,40 @@ class Root extends React.Component {
     }
 
     render() {
-        const {tickets} = this.props;
+        const {tickets, updateStopsFilter, state, filterStopsCounts} = this.props;
 
         return (
             <AppContainer>
-                {tickets.sort(({price: firstP}, {price: secondP}) => firstP - secondP)
-                    .map((ticket, id) => {
-                        return <Ticket ticket={ticket} key={id}/>;
-                    })}
-                <DevTools/>
+                <button onClick={() => console.log(state)}>State</button>
+                <OutputCustomizer
+                    updateFilter={updateStopsFilter}
+                    filterStopsCounts={filterStopsCounts}
+                />
+                <div>
+                    {tickets
+                        .filter(({stops}) => filterStopsCounts.includes(stops))
+                        .sort(({price: firstP}, {price: secondP}) => firstP - secondP)
+                        .map((ticket, id) => {
+                            return <Ticket ticket={ticket} key={id} />;
+                        })}
+                    <DevTools />
+                </div>
             </AppContainer>
         );
     }
 }
 
 const mapStateToProps = state => {
-    const {tickets = []} = state;
-    console.log('tickets = ', state);
+    const {tickets, filterStopsCounts} = state;
 
     return {
-        tickets
+        tickets,
+        filterStopsCounts,
+        state
     };
 };
 
 export default connect(
     mapStateToProps,
-    {}
+    {updateStopsFilter}
 )(Root);

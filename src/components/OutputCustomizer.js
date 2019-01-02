@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import {StopsFilter} from './';
+import {StopsFilter, Currencies} from './';
 
 const OutputCustomizerContainer = styled.div`
     border: 1px solid black;
@@ -14,9 +14,10 @@ class Aside extends React.Component {
     }
 
     render() {
-        const {updateFilter, filterStopsCounts} = this.props;
+        const {updateFilter, filterStopsCounts, currency, changeCurrency} = this.props;
         return (
             <OutputCustomizerContainer>
+                <Currencies currency={currency} changeCurrency={changeCurrency} />
                 <StopsFilter updateFilter={updateFilter} values={filterStopsCounts} />
             </OutputCustomizerContainer>
         );

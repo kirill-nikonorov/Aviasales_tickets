@@ -6,7 +6,7 @@ import {
     OPTIONS,
     convertOptionsToValues,
     convertValuesToOptions
-} from '../constants/stepsFilterOptions';
+} from '../constants/StepsFilterOptions';
 
 const {Group} = Checkbox;
 

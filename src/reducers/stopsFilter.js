@@ -1,6 +1,6 @@
 import {updateStopsFilter} from '../actions';
 import {handleActions} from 'redux-actions';
-import {VALUES} from '../constants/stepsFilterOptions';
+import {VALUES} from '../constants/StepsFilterOptions';
 
 export const filterStopsCounts = handleActions(
     {

@@ -48,7 +48,7 @@ const OrangeButton = styled.button`
     color: white;
     text-align: center;
     line-height: 50px;
-    
+
     border-radius: 10px;
     margin: 10px;
     box-shadow: 1px 1px 3px 1px #ccc;

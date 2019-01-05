@@ -1,3 +1,7 @@
-import {createAction} from 'redux-actions';
+import {createActions} from 'redux-actions';
 
-export const fetchTickets = createAction('FETCH_TICKETS');
+export const {ticketsRequest, ticketsSuccess, ticketsError} = createActions(
+    'TICKETS_REQUEST',
+    'TICKETS_SUCCESS',
+    'TICKETS_ERROR'
+);

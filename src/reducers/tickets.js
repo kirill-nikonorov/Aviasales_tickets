@@ -1,8 +1,9 @@
-import {fetchTickets} from '../actions';
+import {ticketsRequest, ticketsSuccess, ticketsError} from '../lib/reduxActions/actions/tickets';
+
 import {handleActions} from 'redux-actions';
 import {isEqual} from 'lodash';
 
-const extractUnique = (obj1, obj2) => {
+const extractUniqueItems = (obj1, obj2) => {
     return [
         ...obj1,
         ...obj2.filter(newItem => {
@@ -11,11 +12,31 @@ const extractUnique = (obj1, obj2) => {
     ];
 };
 
-export const tickets = handleActions(
+export const ticketsPagination = handleActions(
     {
-        [fetchTickets]: (state, {payload}) => {
-            return extractUnique(state, payload);
+        [ticketsRequest]: state => {
+            return {...state, isFetching: true};
+        },
+        [ticketsSuccess]: ({tickets}, {payload}) => {
+            return {
+                tickets: extractUniqueItems(tickets, payload),
+                isFetching: false,
+                hasMore: false
+            };
+        },
+        [ticketsError]: (state, {payload}) => {
+            return {
+                ...state,
+                isFetching: false,
+                hasMore: false,
+                error: payload
+            };
         }
     },
-    []
+    {
+        isFetching: false,
+        hasMore: true,
+        error: undefined,
+        tickets: []
+    }
 );

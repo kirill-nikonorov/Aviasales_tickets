@@ -10,7 +10,8 @@ import {
     CUSTOMIZER_WITH_TICKET_MIN_WIDTH,
     GAP_BETWEEN_CUSTOMIZER_AND_TICKET
 } from '../constants/Layuot';
-import {func, string, array, object} from 'prop-types';
+import {func, string, array, object, bool} from 'prop-types';
+import {Spin} from 'antd';
 
 const AppContainer = styled.div`
     min-height: 100vh;
@@ -37,8 +38,14 @@ const Content = styled.div`
     }
 `;
 const TicketsContainer = styled.div`
-    width: 100%;
-    max-width: ${TICKET_MIN_WIDTH}px;
+    width: ${TICKET_MIN_WIDTH}px;
+    @media (max-width: ${TICKET_MIN_WIDTH}px) {
+        width: 100%;
+    }
+`;
+
+const TextCenteringBox = styled.div`
+    text-align: center;
 `;
 
 class Root extends React.Component {
@@ -46,6 +53,8 @@ class Root extends React.Component {
         tickets: array.isRequired,
         filterStopsCounts: array.isRequired,
         currency: string.isRequired,
+        isTicketsFetching: bool.isRequired,
+        hasTicketsMore: bool.isRequired,
         updateStopsFilter: func.isRequired,
         changeCurrency: func.isRequired
     };
@@ -57,11 +66,23 @@ class Root extends React.Component {
     render() {
         const {
             tickets,
+            isTicketsFetching,
+            hasTicketsMore,
             updateStopsFilter,
             filterStopsCounts,
             currency,
             changeCurrency
         } = this.props;
+
+        const ticketsStatus = isTicketsFetching ? (
+            <TextCenteringBox>
+                <Spin size="large" />
+            </TextCenteringBox>
+        ) : !hasTicketsMore && tickets.length === 0 ? (
+            <TextCenteringBox>No tickets</TextCenteringBox>
+        ) : (
+            ''
+        );
 
         return (
             <AppContainer>
@@ -74,12 +95,14 @@ class Root extends React.Component {
                         changeCurrency={changeCurrency}
                     />
                     <TicketsContainer>
-                        {Array.from(tickets)
+                        {ticketsStatus}
+                        {tickets
                             .filter(({stops}) => filterStopsCounts.includes(stops))
                             .sort(({price: firstP}, {price: secondP}) => firstP - secondP)
                             .map((ticket, id) => {
                                 return <Ticket ticket={ticket} currency={currency} key={id} />;
                             })}
+
                         <DevTools />
                     </TicketsContainer>
                 </Content>
@@ -88,13 +111,21 @@ class Root extends React.Component {
     }
 
     componentWillMount() {
-        setTimeout(() => this.props.loadTickets(), 2000);
+        this.props.loadTickets();
     }
 }
 
-const mapStateToProps = ({tickets = new Set([]), filterStopsCounts = [], currency}) => {
+const mapStateToProps = ({
+    pagination: {ticketsPagination = {}},
+    filterStopsCounts = [],
+    currency
+}) => {
+    const {isFetching: isTicketsFetching, hasMore: hasTicketsMore, tickets} = ticketsPagination;
+
     return {
         tickets,
+        isTicketsFetching,
+        hasTicketsMore,
         filterStopsCounts,
         currency
     };

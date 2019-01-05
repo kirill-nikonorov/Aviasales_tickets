@@ -1,11 +1,12 @@
 import React from 'react';
 import styled from 'styled-components';
-import {StopsFilter, Currencies} from './';
+import {StopsFilter, Currencies} from '../components';
 
 const OutputCustomizerContainer = styled.div`
-    border: 1px solid black;
-    background-color: #e9e9e9;
-    padding: 5px;
+    border-radius: 10px;
+    background-color: #fff;
+    padding: 15px;
+    box-shadow: 1px 1px 3px 1px #ccc;
 `;
 
 class Aside extends React.Component {

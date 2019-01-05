@@ -48,6 +48,7 @@ class StopsFilter extends React.Component {
 
         return (
             <div>
+                <h3>Количество пересадок :</h3>
                 <Checkbox checked={checkAll} onChange={this.handleClickAll}>
                     Все
                 </Checkbox>

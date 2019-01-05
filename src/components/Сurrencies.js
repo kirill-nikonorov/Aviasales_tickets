@@ -5,6 +5,7 @@ const RadioButton = Radio.Button;
 const RadioGroup = Radio.Group;
 
 import {CURRENCIES} from '../constants/Currencies';
+
 const radioButtons = Object.entries(CURRENCIES).map(([cur, lable]) => (
     <RadioButton key={cur} value={cur}>
         {lable}
@@ -17,9 +18,12 @@ const Currencies = ({currency, changeCurrency}) => {
     };
 
     return (
-        <RadioGroup onChange={onChange} buttonStyle="solid" value={currency}>
-            {radioButtons}
-        </RadioGroup>
+        <div>
+            <h3>Валюта :</h3>
+            <RadioGroup onChange={onChange} buttonStyle="solid" value={currency}>
+                {radioButtons}
+            </RadioGroup>
+        </div>
     );
 };
 

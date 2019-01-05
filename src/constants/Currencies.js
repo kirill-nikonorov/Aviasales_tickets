@@ -3,6 +3,11 @@ export const CURRENCIES = {
     EURO: 'EUR',
     USD: 'USD'
 };
+export const CURRENCIES_SYMBOLS = {
+    RUBBLES: '\u20BD',
+    EURO: '\u20Ac',
+    USD: '\u0024'
+};
 
 export const DEFAULT_CURRENCY = 'RUBBLES';
 

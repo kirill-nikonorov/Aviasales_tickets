@@ -10,21 +10,23 @@
     "eslint": "./node_modules/.bin/eslint --fix ./src"
   },
   "dependencies": {
+    "antd": "^3.6.1",
     "axios": "^0.18.0",
+    "css-loader": "^0.28.11",
+    "express": "^4.14.0",
     "path": "^0.12.7",
     "prop-types": "^15.6.1",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
     "react-redux": "^5.0.7",
     "react-router-dom": "^4.2.2",
+    "recompose": "^0.30.0",
     "redux": "^3.7.2",
     "redux-actions": "^2.4.0",
     "redux-thunk": "^2.3.0",
-    "styled-components": "^3.4.1",
-    "express": "^4.14.0",
-    "css-loader": "^0.28.11",
     "style-loader": "^0.21.0",
-    "antd": "^3.6.1"
+    "styled-components": "^3.4.1",
+    "lodash": "^4.17.11"
   },
   "devDependencies": {
     "babel-core": "^6.26.0",

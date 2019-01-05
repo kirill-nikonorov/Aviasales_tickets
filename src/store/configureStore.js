@@ -3,9 +3,8 @@ import rootReducer from '../reducers/rootReducer';
 
 import thunk from 'redux-thunk';
 import DevTools from '../containers/DevTools';
-import tickets from '../ticketsBase';
 
-const initialStore = {...tickets};
+const initialStore = {};
 
 const enhancer = compose(
     applyMiddleware(thunk),

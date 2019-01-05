@@ -1,6 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 import {StopsFilter, Currencies} from '../components';
+import {func, string, array} from 'prop-types';
+import {pure} from 'recompose';
 
 const OutputCustomizerContainer = styled.div`
     border-radius: 10px;
@@ -9,7 +11,14 @@ const OutputCustomizerContainer = styled.div`
     box-shadow: 1px 1px 3px 1px #ccc;
 `;
 
-class Aside extends React.Component {
+class OutputCustomizer extends React.Component {
+    static propTypes = {
+        filterStopsCounts: array.isRequired,
+        currency: string.isRequired,
+
+        updateFilter: func.isRequired,
+        changeCurrency: func.isRequired
+    };
     constructor(props) {
         super(props);
     }
@@ -25,4 +34,4 @@ class Aside extends React.Component {
     }
 }
 
-export default Aside;
+export default pure(OutputCustomizer);

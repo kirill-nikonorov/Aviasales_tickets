@@ -2,6 +2,8 @@ import React from 'react';
 import styled from 'styled-components';
 import {CURRENCY_RUBBLES_EQUIVALENT, CURRENCIES_SYMBOLS} from '../constants/Currencies';
 import {TICKET_MIN_WIDTH} from '../constants/Layuot';
+import {string, object} from 'prop-types';
+import {pure} from 'recompose';
 
 const TicketContainer = styled.div`
     display: grid;
@@ -39,13 +41,14 @@ const InteractiveBlock = styled.div`
         border-top: 1px solid #ccc;
     }
 `;
-const OrangeButton = styled.div`
+const OrangeButton = styled.button`
     height: 60px;
     width: 160px;
     background-color: #ff6d00;
     color: white;
     text-align: center;
-    line-height: 54px;
+    line-height: 50px;
+    
     border-radius: 10px;
     margin: 10px;
     box-shadow: 1px 1px 3px 1px #ccc;
@@ -107,6 +110,11 @@ const AirportInfo = ({time, airport, cityName, date, alignRight}) => {
 };
 
 class Ticket extends React.Component {
+    static propTypes = {
+        currency: string.isRequired,
+        ticket: object.isRequired
+    };
+
     constructor(props) {
         super(props);
     }
@@ -170,4 +178,4 @@ class Ticket extends React.Component {
     }
 }
 
-export default Ticket;
+export default pure(Ticket);

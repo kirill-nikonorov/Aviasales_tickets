@@ -2,14 +2,15 @@ import React from 'react';
 import {connect} from 'react-redux';
 import styled from 'styled-components';
 import {Ticket, OutputCustomizer, Header} from '../components';
-import {updateStopsFilter, changeCurrency} from '../actions';
-
+import {updateStopsFilter, changeCurrency, loadTickets} from '../actions';
+import {pure} from 'recompose';
 import DevTools from './DevTools';
 import {
     TICKET_MIN_WIDTH,
     CUSTOMIZER_WITH_TICKET_MIN_WIDTH,
     GAP_BETWEEN_CUSTOMIZER_AND_TICKET
 } from '../constants/Layuot';
+import {func, string, array, object} from 'prop-types';
 
 const AppContainer = styled.div`
     min-height: 100vh;
@@ -22,7 +23,7 @@ const Content = styled.div`
     justify-content: center;
     display: grid;
     grid-auto-flow: column;
-    grid-auto-columns:max-content min-content ;
+    grid-auto-columns: max-content min-content;
     grid-auto-rows: min-content;
     align-items: start;
 
@@ -41,6 +42,14 @@ const TicketsContainer = styled.div`
 `;
 
 class Root extends React.Component {
+    static propTypes = {
+        tickets: array.isRequired,
+        filterStopsCounts: array.isRequired,
+        currency: string.isRequired,
+        updateStopsFilter: func.isRequired,
+        changeCurrency: func.isRequired
+    };
+
     constructor(props) {
         super(props);
     }
@@ -65,7 +74,7 @@ class Root extends React.Component {
                         changeCurrency={changeCurrency}
                     />
                     <TicketsContainer>
-                        {tickets
+                        {Array.from(tickets)
                             .filter(({stops}) => filterStopsCounts.includes(stops))
                             .sort(({price: firstP}, {price: secondP}) => firstP - secondP)
                             .map((ticket, id) => {
@@ -77,20 +86,21 @@ class Root extends React.Component {
             </AppContainer>
         );
     }
+
+    componentWillMount() {
+        setTimeout(() => this.props.loadTickets(), 2000);
+    }
 }
 
-const mapStateToProps = state => {
-    const {tickets, filterStopsCounts, currency} = state;
-
+const mapStateToProps = ({tickets = new Set([]), filterStopsCounts = [], currency}) => {
     return {
         tickets,
         filterStopsCounts,
-        currency,
-        state
+        currency
     };
 };
 
 export default connect(
     mapStateToProps,
-    {updateStopsFilter, changeCurrency}
-)(Root);
+    {updateStopsFilter, changeCurrency, loadTickets}
+)(pure(Root));

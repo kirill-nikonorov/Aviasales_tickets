@@ -1,5 +1,6 @@
 import React from 'react';
 import {Radio} from 'antd';
+import {pure} from 'recompose';
 
 const RadioButton = Radio.Button;
 const RadioGroup = Radio.Group;
@@ -12,7 +13,7 @@ const radioButtons = Object.entries(CURRENCIES).map(([cur, lable]) => (
     </RadioButton>
 ));
 
-const Currencies = ({currency, changeCurrency}) => {
+const Currencies = pure(({currency, changeCurrency}) => {
     const onChange = ({target: {value}}) => {
         changeCurrency(value);
     };
@@ -25,6 +26,6 @@ const Currencies = ({currency, changeCurrency}) => {
             </RadioGroup>
         </div>
     );
-};
+});
 
 export {Currencies};

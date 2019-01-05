@@ -1,12 +1,14 @@
 import React from 'react';
 import styled from 'styled-components';
 import {Checkbox} from 'antd';
+import {pure} from 'recompose';
 
 import {
     OPTIONS,
     convertOptionsToValues,
     convertValuesToOptions
 } from '../constants/StepsFilterOptions';
+import {array, func} from 'prop-types';
 
 const {Group} = Checkbox;
 
@@ -16,6 +18,10 @@ const StyledCheckboxGroup = styled(Group)`
 `;
 
 class StopsFilter extends React.Component {
+    static propTypes = {
+        values: array.isRequired,
+        updateFilter: func.isRequired
+    };
     constructor(props) {
         super(props);
         const {values} = props;
@@ -62,4 +68,4 @@ class StopsFilter extends React.Component {
     }
 }
 
-export default StopsFilter;
+export default pure(StopsFilter);

@@ -1,9 +1,7 @@
 import {combineReducers} from 'redux';
-import {handleActions} from 'redux-actions';
 import {filterStopsCounts} from './stopsFilter';
 import {currency} from './currency';
-
-export const tickets = handleActions({}, {});
+import {tickets} from './tickets';
 
 const rootReducer = combineReducers({
     tickets,
